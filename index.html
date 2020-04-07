@@ -1,34 +1,46 @@
-<!DOCTYPE html>
 <html>
-<body onload="setCookie()">
-
-<h1>Home Page</h1>
-<p>Please reload the page using <b>F5</b></p>
-
-<script>
-document.onkeydown = fkey;
-document.onkeypress = fkey
-document.onkeyup = fkey;
-
-var wasPressed = false;
-
-function fkey(e){
-        e = e || window.event;
-       if( wasPressed ) return;
-
-        if (e.keyCode == 116) {
-           var x = document.cookie;
-             alert("your cookie is "+ x);
-             //wasPressed = true;
-        }else {
-            alert("Window closed");
+<head>
+    <title>Cookie!!!</title>
+    <h1>Welcome to the Home Page</h1>
+    <script type="text/javascript">
+        function createCookie(cookieName,cookieValue,daysToExpire)
+        {
+            var date = new Date();
+            date.setTime(date.getTime()+(daysToExpire*24*60*60*1000));
+            document.cookie = cookieName + "=" + cookieValue + "; expires=" + date.toGMTString();
         }
-}
+        function accessCookie(cookieName)
+        {
+            var name = cookieName + "=";
+            var allCookieArray = document.cookie.split(';');
+            for(var i=0; i<allCookieArray.length; i++)
+            {
+                var temp = allCookieArray[i].trim();
+                if (temp.indexOf(name)==0)
+                    return temp.substring(name.length,temp.length);
+            }
+            return "";
+        }
+        function checkCookie()
+        {
+            var user = accessCookie("testCookie");
+            if (user!="")
+                alert("Welcome Back " + user + "!!!");
+            else
+            {
+                user = prompt("Please enter your name");
+                num = prompt("How many days you want to store your name on your computer?");
+                if (user!="" && user!=null)
+                {
+                    createCookie("testCookie", user, num);
+                }
+            }
+        }
+    </script>
+</head>
+<body onload="checkCookie()"></body>
 
-function setCookie() {
-     document.cookie ="name=UserOne";
-}
-</script>
-
-</body>
+<footer>
+    <p>&copy; Copyright Aisha Abass April 13, 2020</p>
+</footer>
 </html>
